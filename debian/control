@@ -1,0 +1,31 @@
+Source: libredmine-stat-perl
+Section: perl
+Priority: optional
+Build-Depends: debhelper (>= 7)
+Build-Depends-Indep: perl
+Maintainer: Fedor A Borshev <fedor@shogo.ru>
+Standards-Version: 3.9.1
+Homepage: http://search.cpan.org/dist/Redmine-Stat/
+
+Package: libredmine-stat-perl
+Architecture: all
+Depends: ${misc:Depends}, ${perl:Depends}, libfile-slurp-perl, libxml-libxml-perl, libio-socket-ssl-perl, libcrypt-ssleay-perl, 
+Description: Perl extension for dealing with Redmine Rest api.
+ Redmine::Stat is designed for statistic purposes only, it does not apply CRUD
+ or any other operations. I have wrote this module because i wanted to combine
+ RRDtool with my Redmine.
+ .
+ Redmine::Stat works with Redmine REST api
+ (http://www.redmine.org/projects/redmine/wiki/Rest_api). By default redmine
+ forces clients to use pagination, and does not allow unlimited queries, what
+ is a bad idea imho. You need some modifications in Redmine core for this
+ module to work correctly. Otherwise, if you don't need by-project or
+ by-tracker issue statistics, you may not modify Redmine - this module will
+ deal with "meta" fields, such as total_count. Maximum limit (100) is located
+ as a Magick number in app/controllers/application_controller.rb:415 as of my
+ version 1.4.2.
+ .
+ You may get almost any statistics by creating your own queries in redmine,
+ and parsing them through this module.
+ .
+ This description was automagically extracted from the module by dh-make-perl.
