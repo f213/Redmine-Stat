@@ -1,2 +1,6 @@
 t/real_auth_data/
+Makefile
 Makefile.old
+*.swp
+blib/
+pm_to_blib
