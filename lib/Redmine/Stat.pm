@@ -91,8 +91,11 @@ at your option, any later version of Perl 5 you may have available.
 
 sub new
 {
-	my $self=shift;
+	(my $self, my %p) = @_;
 
+	$self->url ($p{url}) if exists $p{url} and length $p{url};
+	$self->auth_key ($p{auth_key}) if exists $p{auth_key} and length $p{auth_key};
+	$self->query_id ($p{query_id}) if exists $p{query_id} and length $p{query_id};
 	$self;
 }
 

@@ -5,7 +5,7 @@
 
 # change 'tests => 1' to 'tests => last_test_to_print';
 use Data::Dumper;
-use Test::More tests => 43;
+use Test::More tests => 46;
 use File::Slurp;
 
 our $issues_xml; our $projects_xml; our $trackers_xml;
@@ -40,6 +40,21 @@ BEGIN { #internal utils
 
 	is ($redmine->_get_query_url('projects'), 'https://redmine.redmine.ru/projects.xml', 'Projects url generation');
 	is ($redmine->_get_query_url('trackers'), 'https://redmine.redmine.ru/trackers.xml', 'Trackers url generation');
+
+}
+BEGIN { #new constructor
+	use Redmine::Stat;
+	use Data::Dumper;
+	$url = 'https://redmine1.redmine1.ru';
+	$auth_key = 'Aiv6vaiph7ooVeew';
+	my $redmine = Redmine::Stat->new (
+		url		=> $url,
+		auth_key	=> $auth_key,
+		query_id	=> 100501,
+	);
+	is ($redmine->url, $url, 'Setting redmine url via constructor');
+	is ($redmine->auth_key, $auth_key, 'Setting auth key via constructor');
+	is ($redmine->query_id, 100501, 'Setting query id via constructor');
 
 }
 BEGIN { #Issues tests
