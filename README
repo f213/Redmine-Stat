@@ -3,16 +3,23 @@ NAME
 
 SYNOPSIS
             use Redmine::Stat;
-            my $redmine=new Redmine::Stat;
+            my $redmine = new Redmine::Stat;
 
-            $redmine->auth_key('your_secret_path_to_api');
+            $redmine->auth_key('your_secret_key_to_api');
             $redmine->url('https://your.redmine.url');
-
-            $query_id=100500; #this is a query with which you are dealing with
-            $redmine->query_id($query_id);
+            $redmine->query_id(100500) #id of redmine query, which stats your are gathering
 
 
-            $redmine->query(); 
+            use Redmine::Stat;
+            my $redmine = new Redmine::Stat->new(
+                    auth_key        => 'your_secret_key_to_api',
+                    url             => 'https://your.redmine.url');
+                    query_id        => 100500,
+            );
+
+
+
+            $redmine->query(); #this does all the work
 
             $issues_count   = $redmine->total_issues;
             $projects_count = $redmine->total_projects;
@@ -21,9 +28,25 @@ SYNOPSIS
             foreach ($redmine->projects)
             {
                     print "Project: ". $_->{name} . " ";
+                    print "Path: ". $_->{redmine_path} ." ";
+                    print "Descripttion: ". $_->{description} ." ";
                     print "Issues count: ". $_->{issues_count} ." ";
                     print "\r\n";
             }
+
+            foreach ($redmine->trackers)
+            {
+                    print "Tracker: ". $_->{name}  ." ";
+                    print "Issues count: ". $_->{issues_count} ." ";
+                    print "\r\n";
+            }
+
+            $trackers{bug} = $redmine->tracker('BUG'); #you can search trackers by name
+            $trackers{feature} = $remdine->tracker(4); #or by redmine id
+
+            $projects{test.com} = $redmine->project('test.com'); #projects by name
+            $projects{test.org} = $redmine->project(15); #by id
+            $projects{test.net} = $redmine->project('test_net') #by redmine project path
 
 DESCRIPTION
     This module is designed for statistic purposes only, it does not apply
